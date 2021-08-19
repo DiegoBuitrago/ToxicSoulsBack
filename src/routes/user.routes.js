@@ -9,7 +9,7 @@ router.get('/', (req, res) => res.send({message: 'Users module'}));
 
 //post routes
 
-router.post('/add-user', /*middlewares*/ userController.user);
+router.post('/add-user', /*middlewares*/ userController.registerUser);
 
 //put routes
 
