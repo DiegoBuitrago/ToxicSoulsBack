@@ -5,7 +5,7 @@ const router = Router();
 
 
 //get routes
-router.get('/', (req, res) => res.send({message: 'Users module'}));
+router.get('/', userController.getUsers);
 
 //post routes
 
