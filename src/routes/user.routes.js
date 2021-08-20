@@ -11,6 +11,8 @@ router.get('/', userController.getUsers);
 
 router.post('/add-user', /*middlewares*/ userController.registerUser);
 
+router.post('/login-user', userController.loginUser);
+
 //put routes
 
 //delete routes
