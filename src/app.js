@@ -1,5 +1,6 @@
 import express from 'express';
 import userRoutes from './routes/user.routes';
+import eventRoutes from './routes/eventRoutes';
 
 const app = express();
 
@@ -11,8 +12,7 @@ app.get('/', (req, res) => {
     });
 });
 
-
-//En la rama events
 app.use('/api/user', userRoutes);
+app.use('/api/event', eventRoutes);
 
 export default app;
