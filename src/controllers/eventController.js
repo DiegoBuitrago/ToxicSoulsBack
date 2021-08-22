@@ -2,10 +2,11 @@ import Event from '../models/Event';
 
 export const createEvent = async (req, res) => {
     console.log('Try to create event')
-    const { id, date_event, city_event, direction_event, description_event, presale, flyer } = req.body;
+    const { id_event, date_event, city_event, direction_event, description_event, presale, flyer } = req.body;
+    console.log(id_event, date_event, city_event, direction_event, description_event, presale, flyer)
     try {
         const event = new Event({
-            id,
+            id_event,
             date_event,
             city_event,
             direction_event, //Se supone que esta llega en coordenadas de google maps.

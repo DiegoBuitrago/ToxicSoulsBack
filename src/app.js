@@ -13,6 +13,6 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/user', userRoutes);
-app.use('/api/event', eventRoutes);
+app.use('/api/events', eventRoutes);
 
 export default app;
