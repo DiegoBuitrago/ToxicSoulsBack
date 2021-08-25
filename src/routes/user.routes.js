@@ -16,6 +16,8 @@ router.get('/:_id', [verifyToken, isAdmin], userController.getUserById);
 
 router.post('/add-user', [verifyToken, isAdmin],  userController.registerUser);
 
+router.post('/login-user', userController.loginUser);
+
 //put routes
 
 router.put('/:_id', verifyToken, userController.editUser);
