@@ -73,6 +73,33 @@ export const registerUser = async (req, res) => {
     }
 };
 
+export const loginUser = async (req, res) => {
+
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email });
+    if (!user) res.status(400).send({
+        status: 'error',
+        message: `User not found`
+    });
+
+    const passwordMatch = await User.comparePassword(password, user.password);
+
+    if (!passwordMatch) return res.status(401).send({
+        status: 'error',
+        message: `Wrong password`
+    });
+
+    const token = await jwt.sign({ id: user._id }, config.SECRET, {
+        expiresIn: 86400
+    });
+
+    return res.status(200).send({
+        status: 'Ok',
+        token
+    });
+};
+
 export const editUser = async (req, res, next) => {
     const id = req.params._id;
     try {
