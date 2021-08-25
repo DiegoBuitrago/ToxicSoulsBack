@@ -37,7 +37,7 @@ export const registerSuperAdmin = async () => {
         name: 'super admin',
         email: 'superAdmin@gmail.com',
         password: await User.encryptPassword('123'),
-        roles: ['61258010d584513a7ca33c3c']
+        roles: [roleAdmin._id]
     });
 
     await user.save();
