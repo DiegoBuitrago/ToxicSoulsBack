@@ -1,6 +1,7 @@
 import User from '../models/User';
 import jwt from 'jsonwebtoken';
 import config from '../config';
+import Role from '../models/Role';
 
 export const getUsers = async (req, res) => {
     const users = await User.find();
@@ -13,8 +14,8 @@ export const getUsers = async (req, res) => {
 export const getUserById = async (req, res, next) => {
     const id = req.params._id;
     try {
-        const user = await User.findById({_id: id});
-        if(!user) return res.status(400).send({
+        const user = await User.findById({ _id: id });
+        if (!user) return res.status(400).send({
             status: 'error',
             message: 'The user does not exist'
         });
@@ -23,7 +24,7 @@ export const getUserById = async (req, res, next) => {
             message: 'User found',
             user
         });
-    }catch(err) {
+    } catch (err) {
         res.status(400).send({
             status: 'error',
             message: 'The server cannot process the request'
@@ -35,18 +36,28 @@ export const getUserById = async (req, res, next) => {
 
 export const registerUser = async (req, res) => {
 
-    const { cc, name, email, password } = req.body;
+    const { cc, name, email, password, roles } = req.body;
 
     try {
-        const user = new User({
+        const newUser = new User({
             cc,
             name,
             email,
-            password: await User.encryptPassword(password)
+            password: await User.encryptPassword(password),
+            roles
         });
-        await user.save();
 
-        const token = await jwt.sign({ id: user._id }, config.SECRET, {
+        if (roles) {
+            const foundRoles = await Role.find({ name: { $in: roles } });
+            newUser.roles = foundRoles.map(role => role._id);
+        } else {
+            const role = await Role.findOne({name: "admin"});
+            newUser.roles = [role._id];
+        }
+
+        const userSaved = await newUser.save();
+
+        const token = await jwt.sign({ _id: userSaved._id }, config.SECRET, {
             expiresIn: 86400 //24 hours
         });
 
@@ -66,10 +77,10 @@ export const editUser = async (req, res, next) => {
     const id = req.params._id;
     try {
         const data = req.body;
-        const userEdit = await User.findOneAndUpdate({_id: id}, data, {
+        const userEdit = await User.findOneAndUpdate({ _id: id }, data, {
             new: true
         });
-        if(!userEdit) return res.status(400).send({
+        if (!userEdit) return res.status(400).send({
             status: 'error',
             message: 'The user cannot be modified'
         });
@@ -78,7 +89,7 @@ export const editUser = async (req, res, next) => {
             message: 'User modified',
             userEdit
         });
-    }catch(err) {
+    } catch (err) {
         res.status(400).send({
             status: 'error',
             message: 'The server cannot process the request'
@@ -91,8 +102,8 @@ export const editUser = async (req, res, next) => {
 export const deleteUser = async (req, res, next) => {
     const id = req.params._id;
     try {
-        const user = await User.findByIdAndDelete({_id: id});
-        if(!user) return res.status(400).send({
+        const user = await User.findByIdAndDelete({ _id: id });
+        if (!user) return res.status(400).send({
             status: 'error',
             message: 'The user could not be removed'
         });
@@ -101,7 +112,7 @@ export const deleteUser = async (req, res, next) => {
             message: 'The user was deleted',
             user
         });
-    }catch(err) {
+    } catch (err) {
         res.status(400).send({
             status: 'error',
             message: 'The server cannot process the request'

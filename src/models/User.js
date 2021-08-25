@@ -7,6 +7,10 @@ const UserModel = new Schema ({
     email: {type: String, unique: true, maxlength: 100, required: true},
     password: {type: String, required: true}, 
     //role faltaría agregar los roles
+    roles: [{
+        ref: 'Role',
+        type: Schema.Types.ObjectId
+    }]
 }, {
     timestamps: true,
     versionKey: false
