@@ -3,7 +3,6 @@ import Presale from '../models/Presale';
 import Artist from '../models/Artist';
 
 const EventModel = new Schema ({
-    id_event: {type: Number, required: true, unique: true},
     date_event: {type: String, required: true},
     city_event: {type: String, required: true},
     direction_event: {type: String, required: false},
