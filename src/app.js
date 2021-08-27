@@ -1,13 +1,16 @@
 import express from 'express';
 import userRoutes from './routes/user.routes';
 import { createRoles, registerSuperAdmin } from './libs/initialSetups';
-
+import cors from 'cors';
+ 
 const app = express();
 
 createRoles();
 registerSuperAdmin();
 
 app.use(express.json());
+
+app.use(cors());
 
 app.get('/', (req, res) => {
     res.send({

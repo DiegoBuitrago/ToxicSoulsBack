@@ -90,12 +90,15 @@ export const loginUser = async (req, res) => {
         message: `Wrong password`
     });
 
-    const token = await jwt.sign({ id: user._id }, config.SECRET, {
+    const token = await jwt.sign({ _id: user._id }, config.SECRET, {
         expiresIn: 86400
     });
 
+    const role = await Role.findOne({_id: user.roles[0]});
+
     return res.status(200).send({
         status: 'Ok',
+        role: role.name,
         token
     });
 };
