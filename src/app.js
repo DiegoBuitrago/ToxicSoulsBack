@@ -4,7 +4,9 @@ import cors from 'cors';
 import userRoutes from './routes/user.routes';
 import eventRoutes from './routes/eventRoutes';
 import { removeAllListeners } from 'nodemon';
+import multer from 'multer';
 
+const upload = multer({dest: './uploads/' })
 const app = express();
 
 app.use(cors());
