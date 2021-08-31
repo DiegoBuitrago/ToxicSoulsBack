@@ -106,8 +106,24 @@ export const loginUser = async (req, res) => {
 export const editUser = async (req, res, next) => {
     const id = req.params._id;
     try {
-        const data = req.body;
-        const userEdit = await User.findOneAndUpdate({ _id: id }, data, {
+        const {cc, name, email, password, roles} = req.body;
+        const newPassword = await User.encryptPassword(password);
+        const userData = {
+            cc,
+            name,
+            email,
+            password: newPassword, 
+            roles 
+        };
+        if (roles) {
+            const foundRoles = await Role.find({ name: { $in: roles } });
+            userData.roles = foundRoles.map(role => role._id);
+        } else {
+            const role = await Role.findOne({name: "admin"});
+            userData.roles = [role._id];
+        }
+
+        const userEdit = await User.findOneAndUpdate({ _id: id }, userData, {
             new: true
         });
         if (!userEdit) return res.status(400).send({
