@@ -9,7 +9,8 @@ const EventModel = new Schema ({
     description_event: {type: String, maxlength: 1000, required: false},
     presale: [{type: String, require: true}],
     artists: [{type: String, require: true}],
-    flyer: {type: String, required: false}
+    flyer: {type: String, required: false},
+    capacity: {type: number, required: false}
 }, {
     timestamps: true,
     versionKey: false

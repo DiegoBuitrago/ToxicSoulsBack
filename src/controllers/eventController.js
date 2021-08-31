@@ -6,8 +6,8 @@ export const createEvent = async (req, res) => {
     console.log('Try to create event')
     console.log(req.body)
     console.log("***********")
-    const { date_event, city_event, direction_event, description_event, presale, artists, flyer } = req.body;
-    console.log(date_event, city_event, direction_event, description_event, presale, artists, flyer)
+    const { date_event, city_event, direction_event, description_event, presale, artists, flyer, capacity} = req.body;
+    console.log(date_event, city_event, direction_event, description_event, presale, artists, flyer, capacity)
     try{
         var event = new Event({
             date_event,
@@ -16,7 +16,8 @@ export const createEvent = async (req, res) => {
             description_event,
             presale,
             artists,
-            flyer
+            flyer,
+            capacity
         });
         console.log('event', event)
         await event.save();
