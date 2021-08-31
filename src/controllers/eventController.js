@@ -32,7 +32,7 @@ export const createEvent = async (req, res) => {
     }
 };
 
-export const getEventById = async (req, res, next) => {
+export const getEventById = async (req, res) => {
     const id = req.params._id;
     try {
         const event = await Event.findById({ _id: id });
@@ -50,7 +50,7 @@ export const getEventById = async (req, res, next) => {
             status: 'error',
             message: 'The server cannot process the request'
         });
-        next();
+        //next();
     }
 };
 
@@ -62,7 +62,8 @@ export const getEvents = async (req, res) => {
     });
 };
 
-export const editEvent = async (req, res, next) => {
+export const editEvent = async (req, res) => {
+    console.log('edit', req)
     const id = req.params._id;
     try {
         const data = req.body;
@@ -83,7 +84,7 @@ export const editEvent = async (req, res, next) => {
             status: 'error',
             message: 'The server cannot process the request'
         });
-        next();
+        //next();
     }
 };
 

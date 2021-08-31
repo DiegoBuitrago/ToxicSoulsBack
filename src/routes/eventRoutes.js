@@ -5,6 +5,7 @@ const router = Router();
 
 //get routes
 router.get('/', eventController.getEvents);
+router.get('/:_id', eventController.getEventById)
 
 //post routes
 router.post('/add-event', /*middlewares*/ eventController.createEvent);
