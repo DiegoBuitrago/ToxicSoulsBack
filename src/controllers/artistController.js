@@ -6,8 +6,8 @@ export const createArtist = async (req, res) => {
     console.log('Try to create artist')
     console.log(req.body)
     console.log("***********")
-    const { name_artist, city_event, description_artist, nationality_artist, photo_artist} = req.body;
-    console.log(name_artist, city_event, description_artist, nationality_artist, photo_artist)
+    const { name_artist, description_artist, nationality_artist, photo_artist} = req.body;
+    console.log(name_artist, description_artist, nationality_artist, photo_artist)
     try{
         var artist = new Artist({
             name_artist,
@@ -19,12 +19,12 @@ export const createArtist = async (req, res) => {
         await artist.save();
         return res.status(200).send({
             status: 'ok',
-            event: artist
+            artist: artist
         });
     } catch (error) {
         return res.send({
             status: 'error 400',
-            message: `The event could not be registered possible causes are insufficient or duplicate data.`
+            message: `The artist could not be registered possible causes are insufficient or duplicate data.`
         });
     }
 };
@@ -32,15 +32,15 @@ export const createArtist = async (req, res) => {
 export const getArtistById = async (req, res) => {
     const id = req.params._id;
     try {
-        const event = await Artist.findById({ _id: id });
-        if (!event) return res.status(400).send({
+        const artist = await Artist.findById({ _id: id });
+        if (!artist) return res.status(400).send({
             status: 'error',
             message: 'Artist does not exist'
         });
         return res.status(200).send({
             status: 'ok',
             message: 'Artist found',
-            event
+            artist
         });
     } catch (err) {
         res.status(400).send({
