@@ -3,6 +3,7 @@ import cors from 'cors';
 //import bodyParser , {urlencoded} from 'body-parser';
 import userRoutes from './routes/user.routes';
 import eventRoutes from './routes/eventRoutes';
+import artistRoutes from './routes/artistRoutes';
 import { createRoles, registerSuperAdmin } from './libs/initialSetups';
  
 const app = express();
@@ -22,5 +23,6 @@ app.get('/', (req, res) => {
 
 app.use('/api/user', userRoutes);
 app.use('/api/events', eventRoutes);
+app.use('/api/artists', artistRoutes);
 
 export default app;

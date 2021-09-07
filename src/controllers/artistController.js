@@ -1,29 +1,25 @@
-import Event from '../models/Event';
+import Artist from '../models/Artist';
 import app from '../app';
 
 
-export const createEvent = async (req, res) => {
-    console.log('Try to create event')
+export const createArtist = async (req, res) => {
+    console.log('Try to create artist')
     console.log(req.body)
     console.log("***********")
-    const { date_event, city_event, direction_event, description_event, presale, artists, flyer, capacity} = req.body;
-    console.log(date_event, city_event, direction_event, description_event, presale, artists, flyer, capacity)
+    const { name_artist, city_event, description_artist, nationality_artist, photo_artist} = req.body;
+    console.log(name_artist, city_event, description_artist, nationality_artist, photo_artist)
     try{
-        var event = new Event({
-            date_event,
-            city_event,
-            direction_event, //Se supone que esta llega en coordenadas de google maps.
-            description_event,
-            presale,
-            artists,
-            flyer,
-            capacity
+        var artist = new Artist({
+            name_artist,
+            description_artist,
+            nationality_artist,
+            photo_artist
         });
-        console.log('event', event)
-        await event.save();
+        console.log('artist', artist)
+        await artist.save();
         return res.status(200).send({
             status: 'ok',
-            event: event
+            event: artist
         });
     } catch (error) {
         return res.send({
@@ -33,17 +29,17 @@ export const createEvent = async (req, res) => {
     }
 };
 
-export const getEventById = async (req, res) => {
+export const getArtistById = async (req, res) => {
     const id = req.params._id;
     try {
-        const event = await Event.findById({ _id: id });
+        const event = await Artist.findById({ _id: id });
         if (!event) return res.status(400).send({
             status: 'error',
-            message: 'The event does not exist'
+            message: 'Artist does not exist'
         });
         return res.status(200).send({
             status: 'ok',
-            message: 'Event found',
+            message: 'Artist found',
             event
         });
     } catch (err) {
@@ -55,30 +51,30 @@ export const getEventById = async (req, res) => {
     }
 };
 
-export const getEvents = async (req, res) => {
-    const events = await Event.find();
+export const getArtists = async (req, res) => {
+    const artists = await Artist.find();
     res.status(200).send({
         'status': 'ok',
-        events
+        artists
     });
 };
 
-export const editEvent = async (req, res) => {
+export const editArtist = async (req, res) => {
     console.log('edit', req.body)
     const id = req.params._id;
     try {
         const data = req.body;
-        const eventEdit = await Event.findOneAndUpdate({ _id: id }, data, {
+        const artistEdit = await Artist.findOneAndUpdate({ _id: id }, data, {
             new: true
         });
-        if (!eventEdit) return res.status(400).send({
+        if (!artistEdit) return res.status(400).send({
             status: 'error',
-            message: 'The event cannot be modified'
+            message: 'Artist cannot be modified'
         });
         return res.status(200).send({
             status: 'ok',
-            message: 'Event modified',
-            eventEdit
+            message: 'Artist modified',
+            artistEdit
         });
     } catch (err) {
         res.status(400).send({
@@ -89,18 +85,18 @@ export const editEvent = async (req, res) => {
     }
 };
 
-export const deleteEvent = async (req, res, next) => {
+export const deleteArtist = async (req, res, next) => {
     const id = req.params._id;
     try {
-        const event = await Event.findByIdAndDelete({ _id: id });
-        if (!event) return res.status(400).send({
+        const artist = await Artist.findByIdAndDelete({ _id: id });
+        if (!artist) return res.status(400).send({
             status: 'error',
-            message: 'The event could not be removed'
+            message: 'Artist could not be removed'
         });
         return res.status(200).send({
             status: 'ok',
-            message: 'The event was deleted',
-            event
+            message: 'Artist was deleted',
+            artist
         });
     } catch (err) {
         res.status(400).send({
