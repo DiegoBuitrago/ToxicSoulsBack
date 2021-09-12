@@ -6,20 +6,22 @@ export const createArtist = async (req, res) => {
     console.log('Try to create artist')
     console.log(req.body)
     console.log("***********")
-    const { name_artist, description_artist, nationality_artist, photo_artist} = req.body;
-    console.log(name_artist, description_artist, nationality_artist, photo_artist)
+    const { name_artist, description_artist, 
+        nationality_artist, social_networks, photo_artist} = req.body;
+    //console.log(name_artist, description_artist, nationality_artist, social_networks, photo_artist)
     try{
-        var artist = new Artist({
+        const artist = new Artist({
             name_artist,
             description_artist,
             nationality_artist,
+            social_networks,
             photo_artist
         });
         console.log('artist', artist)
         await artist.save();
         return res.status(200).send({
             status: 'ok',
-            artist: artist
+            artist
         });
     } catch (error) {
         return res.send({
