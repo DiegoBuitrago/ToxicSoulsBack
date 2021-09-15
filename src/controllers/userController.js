@@ -99,6 +99,8 @@ export const loginUser = async (req, res) => {
     return res.status(200).send({
         status: 'Ok',
         role: role.name,
+        name: user.name,
+        email: user.email,
         token
     });
 };
