@@ -8,7 +8,7 @@ const EventModel = new Schema ({
     direction_event: {type: String, required: false},
     description_event: {type: String, maxlength: 1000, required: false},
     presales: [{ref:Presale, type: Object, require: true}],
-    artists: [{type: String, require: true}],
+    artists: [{ref: Artist, type:Object, require: true}],
     flyer: {type: String, required: false},
     capacity: {type: Number, required: false}
 }, {
