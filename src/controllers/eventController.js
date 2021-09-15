@@ -1,4 +1,5 @@
 import Event from '../models/Event';
+import Presale from '../models/Presale';
 import app from '../app';
 
 
