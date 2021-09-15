@@ -15,7 +15,6 @@ export const createEvent = async (req, res) => {
             city_event,
             direction_event, //Se supone que esta llega en coordenadas de google maps.
             description_event,
-            presales,
             artists,
             flyer,
             capacity
