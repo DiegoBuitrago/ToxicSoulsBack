@@ -7,7 +7,7 @@ const EventModel = new Schema ({
     city_event: {type: String, required: true},
     direction_event: {type: String, required: false},
     description_event: {type: String, maxlength: 1000, required: false},
-    presale: [{type: String, require: true}],
+    presales: [{ref:Presale, type: Object, require: true}],
     artists: [{type: String, require: true}],
     flyer: {type: String, required: false},
     capacity: {type: Number, required: false}

@@ -6,21 +6,29 @@ export const createEvent = async (req, res) => {
     console.log('Try to create event')
     console.log(req.body)
     console.log("***********")
-    const { date_event, city_event, direction_event, description_event, presale, artists, flyer, capacity} = req.body;
-    console.log(date_event, city_event, direction_event, description_event, presale, artists, flyer, capacity)
+    const { date_event, city_event, direction_event, description_event, presales, artists, flyer, capacity} = req.body;
+    console.log(date_event, city_event, direction_event, description_event, presales, artists, flyer, capacity)
     try{
         var event = new Event({
             date_event,
             city_event,
             direction_event, //Se supone que esta llega en coordenadas de google maps.
             description_event,
-            presale,
+            presales,
             artists,
             flyer,
             capacity
         });
-        console.log('event', event)
+        await presales.forEach(async(value) => {
+            console.log('presaels', value);
+            var presale = new Presale({
+                date_end_presale : value.date_end_presale,
+                price_presale : value.price_presale
+            })
+            event.presales.push(presale);
+        });
         await event.save();
+        console.log('event', event)
         return res.status(200).send({
             status: 'ok',
             event: event
