@@ -6,7 +6,9 @@
   "scripts": {
     "build": "babel src --out-dir build",
     "dev": "nodemon src/main.js --exec babel-node",
-    "start": "node build/main.js"
+    "start": "node build/main.js",
+    "server": "babel-node src/main.js"
+    
   },
   "repository": {
     "type": "git",
@@ -30,7 +32,8 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.7",
-    "multer": "^1.4.3"
+    "multer": "^1.4.3",
+    "pm2": "^5.1.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"
