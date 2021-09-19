@@ -21,6 +21,11 @@ app.get('/', (req, res) => {
     });
 });
 
+app.post('/', (req, res) => {
+    console.log(req);
+    res.sendStatus(200);
+});
+
 app.use('/api/user', userRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/artists', artistRoutes);
