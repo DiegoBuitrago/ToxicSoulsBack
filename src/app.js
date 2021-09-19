@@ -16,6 +16,7 @@ app.use(express.json());
 app.use(cors());
 
 app.get('/', (req, res) => {
+    console.log('primer get')
     res.send({
         'Company name': 'Toxic Souls Records'
     });
