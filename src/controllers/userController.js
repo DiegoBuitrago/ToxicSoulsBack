@@ -8,6 +8,8 @@ let dataClient = null;
 
 var transporter = nodemailer.createTransport({
     service: "Gmail",
+    port: 465,
+    secure: true, 
     auth: {
       user: 'fuera.deo.tunja@gmail.com',
       pass: 'lalala123..'
