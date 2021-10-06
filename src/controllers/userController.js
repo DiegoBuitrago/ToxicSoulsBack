@@ -28,7 +28,9 @@ export const emailConfirm = async(req, res) => {
     console.log(req.body)
     console.log('email',dataClient.customer_email);
     console.log('client',dataClient.customer_data);
-    await sendEmail(dataClient.customer_email);
+    if(dataClient.status == 'APPROVED'){
+        await sendEmail(dataClient.customer_email);
+    }
     return res.sendStatus(200)
 }
 
