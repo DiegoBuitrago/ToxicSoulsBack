@@ -19,7 +19,7 @@ async function sendEmail(mail){
         from: 'fuera.deo.tunja@gmail.com',
         to: mail,
         subject: 'Confirmación pago TOXIC SOULS RECORDS',
-        text: `Hemos recibido un pago para un evento de TOXIC SOULS RECORDS.\nA nombre de ${dataClient.customer_data.full_name} con documento de identificación ${dataClient.customer_data.legal_id_type}-${dataClient.customer_data.legal_id} y número de celular ${dataClient.customer_data.phone_number}\nTransacción con un valor de ${dataClient.amount_in_cents/100} COP, por medio de ${dataClient.payment_method_type}`,
+        text: `Hemos recibido un pago para un evento de TOXIC SOULS RECORDS.\nA nombre de ${dataClient.customer_data.full_name} con documento de identificación ${dataClient.customer_data.legal_id_type}-${dataClient.customer_data.legal_id} y número de celular ${dataClient.customer_data.phone_number}. Transacción con un valor de ${dataClient.amount_in_cents/100} COP, por medio de ${dataClient.payment_method_type}`,
     });
 }
 
