@@ -7,17 +7,15 @@ import nodemailer from 'nodemailer';
 let dataClient = null;
 
 var transporter = nodemailer.createTransport({
-    service: "Gmail",
-    port: 465,
-    secure: false, 
+    service: "gmail",
     auth: {
       user: 'fuera.deo.tunja@gmail.com',
       pass: 'lalala123..'
     }
 });
 
-function sendEmail(mail){
-    transporter.sendMail({
+async function sendEmail(mail){
+    let info = await transporter.sendMail({
         from: 'fuera.deo.tunja@gmail.com',
         to: mail,
         subject: 'Confirmación pago TOXIC SOULS RECORDS',
