@@ -2,6 +2,38 @@ import User from '../models/User';
 import jwt from 'jsonwebtoken';
 import config from '../config';
 import Role from '../models/Role';
+import nodemailer from 'nodemailer';
+
+let dataClient = null;
+
+var transporter = nodemailer.createTransport({
+    service: "Gmail",
+    auth: {
+      user: 'fuera.deo.tunja@gmail.com',
+      pass: 'lalala123..'
+    }
+});
+
+function sendEmail(mail){
+    transporter.sendMail({
+        from: 'fuera.deo.tunja@gmail.com',
+        to: mail,
+        subject: 'Confirmación pago TOXIC SOULS RECORDS',
+        text: `Hemos recibido un pago para un evento de TOXIC SOULS RECORDS.\n
+        a nombre de ${dataClient.customer_data.full_name} 
+        con documento de identificación ${dataClient.customer_data.legal_id_type}-${dataClient.customer_data.legal_id} 
+        y número de celular ${dataClient.customer_data.phone_number}\n
+        Transacción con un valor de ${dataClient.amount_in_cents/100} COP, por medio de ${dataClient.payment_method_type}`,
+    });
+}
+
+export const emailConfirm = async(req, res) => {
+    dataClient = req.body.data.transaction
+    console.log('email',dataClient.customer_email);
+    console.log('client',dataClient.customer_data);
+    await sendEmail(dataClient.customer_email);
+    return res.sendStatus(200)
+}
 
 export const getUsers = async (req, res) => {
     const users = await User.find();
@@ -104,16 +136,6 @@ export const loginUser = async (req, res) => {
         token
     });
 };
-
-export const emailConfirm = (req, res) => {
-    console.log('ES& papiiii')
-    console.log(req);
-    console.log(req.body);
-    let dataClient = req.body.data.transaction
-    console.log('email',dataClient.customer_email);
-    console.log('client',dataClient.customer_data);
-    return res.sendStatus(200)
-}
 
 export const editUser = async (req, res, next) => {
     const id = req.params._id;
