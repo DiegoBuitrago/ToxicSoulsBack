@@ -24,6 +24,9 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
     console.log(req);
+    console.log(req.body);
+    console.log('Ojala', JSON.stringify(req.body));
+    console.log('Ojala2', JSON.stringify(req.body.transaction));
     res.sendStatus(200);
     //res.status(200).send({ redirect:"http://localhost:4200"});
 });
