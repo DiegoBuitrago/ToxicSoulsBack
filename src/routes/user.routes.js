@@ -18,6 +18,8 @@ router.post('/add-user', [verifyToken, isAdmin],  userController.registerUser);
 
 router.post('/login-user', userController.loginUser);
 
+router.post('/email-confirm', userController.emailConfirm);
+
 //put routes
 
 router.put('/:_id', verifyToken, userController.editUser);

@@ -105,6 +105,16 @@ export const loginUser = async (req, res) => {
     });
 };
 
+export const emailConfirm = (req, res) => {
+    console.log('ES& papiiii')
+    console.log(req);
+    console.log(req.body);
+    let dataClient = req.body.data.transaction
+    console.log('email',dataClient.customer_email);
+    console.log('client',dataClient.customer_data);
+    return res.sendStatus(200)
+}
+
 export const editUser = async (req, res, next) => {
     const id = req.params._id;
     try {

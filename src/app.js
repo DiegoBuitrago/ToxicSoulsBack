@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
     });
 });
 
-app.post('/', (req, res) => {
+/* app.post('/', (req, res) => {
     console.log(req);
     console.log(req.body);
     let dataClient = req.body.data.transaction
@@ -31,7 +31,7 @@ app.post('/', (req, res) => {
     res.sendStatus(200);
     //res.status(200).send({ redirect:"http://localhost:4200"});
 });
-
+ */
 app.use('/api/user', userRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/artists', artistRoutes);
