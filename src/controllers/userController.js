@@ -25,6 +25,7 @@ async function sendEmail(mail){
 
 export const emailConfirm = async(req, res) => {
     dataClient = req.body.data.transaction
+    console.log(req.body)
     console.log('email',dataClient.customer_email);
     console.log('client',dataClient.customer_data);
     await sendEmail(dataClient.customer_email);
