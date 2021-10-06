@@ -25,8 +25,9 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
     console.log(req);
     console.log(req.body);
-    console.log('Ojala', JSON.stringify(req.body));
-    console.log('Ojala2', JSON.stringify(req.body.transaction));
+    let dataClient = req.body.data.transaction
+    console.log('email',dataClient.customer_email);
+    console.log('client',dataClient.customer_data);
     res.sendStatus(200);
     //res.status(200).send({ redirect:"http://localhost:4200"});
 });
