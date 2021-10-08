@@ -58,6 +58,7 @@ async function createTransaction (statusPayment, nameClient, emailClient, docId,
 };
 
 export const getTransactions = async (req, res) => {
+    console.log('Petición de transacciones')
     const transactions = await Transaction.find();
     res.status(200).send({
         'status': 'ok',
