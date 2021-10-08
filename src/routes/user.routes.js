@@ -12,6 +12,8 @@ const router = Router();
 router.get('/', [verifyToken, isAdmin], userController.getUsers);
 router.get('/:_id', [verifyToken, isAdmin], userController.getUserById);
 
+router.get('/transactions', userController.getTransactions);
+
 //post routes
 
 router.post('/add-user', [verifyToken, isAdmin],  userController.registerUser);

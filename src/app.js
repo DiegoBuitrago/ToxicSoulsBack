@@ -22,16 +22,6 @@ app.get('/', (req, res) => {
     });
 });
 
-/* app.post('/', (req, res) => {
-    console.log(req);
-    console.log(req.body);
-    let dataClient = req.body.data.transaction
-    console.log('email',dataClient.customer_email);
-    console.log('client',dataClient.customer_data);
-    res.sendStatus(200);
-    //res.status(200).send({ redirect:"http://localhost:4200"});
-});
- */
 app.use('/api/user', userRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/artists', artistRoutes);
