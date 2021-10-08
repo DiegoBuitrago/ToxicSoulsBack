@@ -27,7 +27,7 @@ export const emailConfirm = async(req, res) => {
     console.log('client',dataClient.customer_data);
     let totalPayment = dataClient.amount_in_cents/100;
     createTransaction(dataClient.status, dataClient.customer_data.full_name, dataClient.customer_email, 
-        dataClient.customer_data.legal_id_type, dataClient.customer_data.phone_number, totalPayment, dataClient.payment_method_type);
+        dataClient.customer_data.legal_id, dataClient.customer_data.phone_number, totalPayment, dataClient.payment_method_type);
     if(dataClient.status == 'APPROVED'){
         await sendEmail(dataClient.customer_email);
     }
