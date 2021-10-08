@@ -5,7 +5,7 @@ import config from '../config';
 import Role from '../models/Role';
 import nodemailer from 'nodemailer';
 
-let dataClient = null;
+/* let dataClient = null;
 
 var transporter = nodemailer.createTransport({
     service: "gmail",
@@ -23,8 +23,8 @@ async function sendEmail(mail){
         text: `Hemos recibido un pago para un evento de TOXIC SOULS RECORDS.\nA nombre de ${dataClient.customer_data.full_name} con documento de identificación ${dataClient.customer_data.legal_id_type}-${dataClient.customer_data.legal_id} y número de celular ${dataClient.customer_data.phone_number}. Transacción con un valor de ${dataClient.amount_in_cents/100} COP, por medio de ${dataClient.payment_method_type}`,
     });
 }
-
-export const emailConfirm = async(req, res) => {
+ */
+/* export const emailConfirm = async(req, res) => {
     dataClient = req.body.data.transaction
     console.log('email',dataClient.customer_email);
     console.log('client',dataClient.customer_data);
@@ -63,7 +63,7 @@ export const getTransactions = async (req, res) => {
         'status': 'ok',
         transactions
     });
-};
+}; */
 
 export const getUsers = async (req, res) => {
     const users = await User.find();

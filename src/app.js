@@ -4,6 +4,7 @@ import cors from 'cors';
 import userRoutes from './routes/user.routes';
 import eventRoutes from './routes/eventRoutes';
 import artistRoutes from './routes/artistRoutes';
+import transactionRoutes from './routes/transactionRoutes';
 import { createRoles, registerSuperAdmin } from './libs/initialSetups';
  
 const app = express();
@@ -25,5 +26,6 @@ app.get('/', (req, res) => {
 app.use('/api/user', userRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/artists', artistRoutes);
+app.use('/api/transactions', transactionRoutes);
 
 export default app;
