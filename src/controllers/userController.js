@@ -1,4 +1,5 @@
 import User from '../models/User';
+import Transaction from '../models/Transaction';
 import jwt from 'jsonwebtoken';
 import config from '../config';
 import Role from '../models/Role';
@@ -25,14 +26,44 @@ async function sendEmail(mail){
 
 export const emailConfirm = async(req, res) => {
     dataClient = req.body.data.transaction
-    console.log(req.body)
     console.log('email',dataClient.customer_email);
     console.log('client',dataClient.customer_data);
+    let totalPayment = dataClient.amount_in_cents/100;
+    createTransaction(dataClient.status, dataClient.customer_data.full_name, dataClient.customer_email, 
+        dataClient.customer_data.legal_id_type, dataClient.customer_data.phone_number, totalPayment, dataClient.payment_method_type);
     if(dataClient.status == 'APPROVED'){
         await sendEmail(dataClient.customer_email);
     }
     return res.sendStatus(200)
 }
+
+async function createTransaction (statusPayment, nameClient, emailClient, docId, phoneNumber, totalPayment, paymentMethod) {
+    console.log('Try to create transaction')
+    try{
+        var transaction = new Transaction({
+            statusPayment,
+            nameClient,
+            emailClient,
+            docId,
+            phoneNumber,
+            totalPayment,
+            paymentMethod
+        });
+        await transaction.save();
+        console.log('transaction', transaction)
+        return "ok";
+    } catch (error) {
+        return "error"
+    }
+};
+
+export const getTransactions = async (req, res) => {
+    const transactions = await Transaction.find();
+    res.status(200).send({
+        'status': 'ok',
+        transactions
+    });
+};
 
 export const getUsers = async (req, res) => {
     const users = await User.find();
